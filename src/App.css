@@ -14,12 +14,12 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #090e2b;
+  min-height: 10;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items:center;
+  justify-content:flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -35,4 +35,98 @@
   to {
     transform: rotate(360deg);
   }
+}
+  /*this is for the test and the weird thing*/
+  .main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50vh;
+    border: 5px outset red;
+    background-color: rgb(98, 178, 221);
+    text-align: center;
+  }
+  .card-middle{
+  border: 1px solid black;
+  padding-top: 20px;
+  padding-right: 60px;
+  padding-bottom: 50px;
+  padding-left: 60px;
+  max-width: 50%;
+  background-color: rgb(242, 100, 75);
+  }
+  .card-left {
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-right: 60px;
+    padding-bottom: 50px;
+    padding-left: 60px;
+    margin-left: 80px; /* Change margin-left to 0 for left alignment */
+    background-color: rgb(242, 100, 75);
+}
+.card-right {
+  border: 1px solid black;
+  padding-top: 20px;
+  padding-right: 60px;
+  padding-bottom: 50px;
+  padding-left: 60px;
+  margin-right: 80px; /* Change margin-right to 80px for right alignment */
+  background-color: rgb(242, 100, 75);
+}
+.file-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  background-color: #f3f3f3;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+}
+.App .file-content {
+  border: 1px solid #ccc;
+  margin: 20px;
+  padding: 10px;
+  height: 200px;
+  overflow-y: scroll;
+  white-space: pre-wrap;
+  background-color: #f8f8f8;
+  text-align: left; /* Align text to the left */
+}
+
+.file-info {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.file-info span {
+  margin-right: 10px;
+}
+
+.file-info button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.file-info button:hover {
+  background-color: #c0392b;
 }
