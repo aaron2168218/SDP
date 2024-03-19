@@ -1,12 +1,66 @@
 import React, { useState } from 'react';
 import './App.css';
 import { parse } from 'acorn';
+import { Bar } from 'react-chartjs-2'; // Correctly import the Bar component
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'; // Import necessary parts from chart.js
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 
 function App() {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [selectedFileContent, setSelectedFileContent] = useState('');
   const [analysisResult, setAnalysisResult] = useState('');
+  const [complexity, setComplexity] = useState(0); 
+
+  const getBackgroundColor = (complexity) => {
+    if (complexity <= 4) {
+      return 'rgba(75, 192, 192, 0.2)'; // Green for complexity 4 or under
+    } else if (complexity <= 8) {
+      return 'rgba(255, 206, 86, 0.2)'; // Yellow for complexity between 4 and 8
+    } else {
+      return 'rgba(255, 99, 132, 0.2)'; // Red for complexity above 8
+    }
+  };
+
+
+  const chartData = {
+    labels: ['Cyclomatic Complexity'],
+    datasets: [
+      {
+        label: 'Cyclomatic Complexity',
+        data: [complexity], // Use the complexity state here
+        backgroundColor: [getBackgroundColor(complexity)],
+        borderColor: ['rgba(255, 99, 132, 1)'],
+        borderWidth: 1,
+      }
+    ],
+  };
+
+
+  const chartOptions = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 15, // Adjust as needed
+      }
+    },
+    plugins: {
+      legend: {
+        display: true // Set to false to hide the legend
+      }
+    }
+  };
+
+
 
   const handleFileUpload = (e) => {
     const newFiles = Array.from(e.target.files);
@@ -69,6 +123,7 @@ function App() {
     // Adjusting CC calculation: CC = E - N + 2 * P
     // Given the potential for 'case' statements to increase complexity, each 'case' is considered an edge
     const cyclomaticComplexity = edgeCount - nodeCount + 2 * 1; // Simplified formula with P=1
+    setComplexity(cyclomaticComplexity);
   
     const resultText = `The file contains approximately ${nodeCount} nodes and ${edgeCount} edges. Cyclomatic Complexity: ${cyclomaticComplexity}`;
     setAnalysisResult(resultText);
@@ -86,7 +141,7 @@ function App() {
           <div className="file-list">
             {files.map((file, index) => (
               <div key={index} className="file-info">
-                <span onClick={() => { setSelectedFile(file.name); setSelectedFileContent(file.content); }}>{file.name}</span>
+                <span onClick={() => { setSelectedFileContent(file.content); }}>{file.name}</span>
                 <button onClick={() => removeFile(file.name)}>X</button>
               </div>
             ))}
@@ -102,6 +157,10 @@ function App() {
       </div>
       <div className="file-content">
         <pre>{selectedFileContent}</pre>
+      </div>
+      
+      <div className="chart-container" style={{ width: '400px', height: '300px', marginTop: '20px' }}>
+        <Bar data={chartData} options={chartOptions} />
       </div>
     </div>
   );
