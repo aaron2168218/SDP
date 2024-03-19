@@ -130,3 +130,16 @@
 .file-info button:hover {
   background-color: #c0392b;
 }
+
+.code-display {
+  position: static;
+  max-height: 300px; /* Adjust as needed */
+  overflow: auto;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: left;
+}
+
+.selected-file-code {
+  max-width: 300px; /* Adjust as needed */
+}
